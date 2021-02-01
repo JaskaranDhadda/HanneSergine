@@ -1,16 +1,20 @@
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,8 +27,9 @@ import java.util.logging.Logger;
 public class TextEditor extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private static JTextArea area;
+	private static JTextArea  txtArea;
 	private static JFrame frame;
+	private static JScrollPane scrollPane;
 	private static int returnValue = 0;
 
 	public void run() {
@@ -39,33 +44,49 @@ public class TextEditor extends JFrame implements ActionListener {
 		}
 
 		//	Set attributes of the app window
-		area = new JTextArea();
+		ImageIcon editorIcon = new ImageIcon("src/resources/images/editor.png");
+		
+		txtArea = new JTextArea();
+		frame.setIconImage(editorIcon.getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(area);
+		scrollPane = new JScrollPane(txtArea);
+		frame.add(scrollPane);
 		frame.setSize(640, 480);
 		frame.setVisible(true);
 
 		//	Build the menu
 		JMenuBar mainMenu = new JMenuBar();
-
+		
 		JMenu fileMenu = new JMenu("File");
 
-		JMenuItem menuItemNew = new JMenuItem("New");
-		JMenuItem menuItemOpen = new JMenuItem("Open");
-		JMenuItem menuItemSave = new JMenuItem("Save");
-		JMenuItem menuItemQuit = new JMenuItem("Quit");
-
+		ImageIcon newIcon = new ImageIcon("src/resources/images/new.png");
+		JMenuItem menuItemNew = new JMenuItem("New", newIcon);
 		menuItemNew.addActionListener(this);
+		menuItemNew.setToolTipText("Create a new file");
+		
+		ImageIcon openIcon = new ImageIcon("src/resources/images/open.png");
+		JMenuItem menuItemOpen = new JMenuItem("Open", openIcon);
 		menuItemOpen.addActionListener(this);
+		menuItemOpen.setToolTipText("Open a new file");
+		
+		ImageIcon saveIcon = new ImageIcon("src/resources/images/save.png");
+		JMenuItem menuItemSave = new JMenuItem("Save", saveIcon);
 		menuItemSave.addActionListener(this);
-		menuItemQuit.addActionListener(this);
+		menuItemSave.setToolTipText("Save file");
+        KeyStroke ctrlS = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+		menuItemSave.setAccelerator(ctrlS);
+		
+		ImageIcon exitIcon = new ImageIcon("src/resources/images/exit.png");
+		JMenuItem menuItemExit = new JMenuItem("Exit", exitIcon);
+		menuItemExit.addActionListener(this);
+		menuItemExit.setToolTipText("Exit application");
 
 		mainMenu.add(fileMenu);
 
 		fileMenu.add(menuItemNew);
 		fileMenu.add(menuItemOpen);
 		fileMenu.add(menuItemSave);
-		fileMenu.add(menuItemQuit);
+		fileMenu.add(menuItemExit);
 
 		frame.setJMenuBar(mainMenu);
 	}
@@ -90,8 +111,8 @@ public class TextEditor extends JFrame implements ActionListener {
 						String line = scan.nextLine() + "\n";
 						ingest = ingest + line;
 					}
-					area.setText(ingest);
-//					scan.close();
+					txtArea.setText(ingest);
+					scan.close();
 				} catch (FileNotFoundException ex) {
 					ex.printStackTrace();
 				}
@@ -103,7 +124,7 @@ public class TextEditor extends JFrame implements ActionListener {
 			try {
 				File f = new File(jfc.getSelectedFile().getAbsolutePath());
 				FileWriter out = new FileWriter(f);
-				out.write(area.getText());
+				out.write(txtArea.getText());
 				out.close();
 			} catch (FileNotFoundException ex) {
 				Component f = null;
@@ -113,8 +134,8 @@ public class TextEditor extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(f, "Error.");
 			}
 		} else if (ae.equals("New")) {
-			area.setText("");
-		} else if (ae.equals("Quit")) {
+			txtArea.setText("");
+		} else if (ae.equals("Exit")) {
 			System.exit(0);
 		}
 	}
