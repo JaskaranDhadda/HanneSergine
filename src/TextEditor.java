@@ -31,9 +31,10 @@ public class TextEditor extends JFrame implements ActionListener {
 	private static JFrame frame;
 	private static JScrollPane scrollPane;
 	private static int returnValue = 0;
+	private static String applicationName = "Hanne Sergine";
 
 	public void run() {
-		frame = new JFrame("Text Editor");
+		frame = new JFrame(applicationName);
 
 		//	Set the look-and-feel (LNF) of the application
 		//	Try to default to whatever the host system prefers
@@ -56,7 +57,8 @@ public class TextEditor extends JFrame implements ActionListener {
 
 		//	Build the menu
 		JMenuBar mainMenu = new JMenuBar();
-		
+
+		// File Menu
 		JMenu fileMenu = new JMenu("File");
 
 		ImageIcon newIcon = new ImageIcon("src/resources/images/new.png");
@@ -87,6 +89,36 @@ public class TextEditor extends JFrame implements ActionListener {
 		fileMenu.add(menuItemOpen);
 		fileMenu.add(menuItemSave);
 		fileMenu.add(menuItemExit);
+
+		// Edit Menu
+		JMenu editMenu = new JMenu("Edit");
+
+		ImageIcon editManagerIcon = new ImageIcon();
+		JMenuItem menuItemEditManager = new JMenuItem("Edit Manager", editManagerIcon);
+		menuItemEditManager.addActionListener(this);
+		menuItemEditManager.setToolTipText("Manage edits");
+
+		mainMenu.add(editMenu);
+
+		editMenu.add(menuItemEditManager);
+
+		// Help Menu
+		JMenu helpMenu = new JMenu("Help");
+
+		ImageIcon viewHelpIcon = new ImageIcon();
+		JMenuItem menuItemViewHelp = new JMenuItem("View Help", viewHelpIcon);
+		menuItemViewHelp.addActionListener(this);
+		menuItemViewHelp.setToolTipText("Documentation and FAQ");
+
+		ImageIcon aboutIcon = new ImageIcon();
+		JMenuItem menuItemAbout = new JMenuItem("About " + applicationName, aboutIcon);
+		menuItemAbout.addActionListener(this);
+		menuItemAbout.setToolTipText("More about us");
+
+		mainMenu.add(helpMenu);
+
+		helpMenu.add(menuItemViewHelp);
+		helpMenu.add(menuItemAbout);
 
 		frame.setJMenuBar(mainMenu);
 	}
