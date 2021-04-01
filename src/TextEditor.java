@@ -1,17 +1,6 @@
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,19 +95,19 @@ public class TextEditor extends JFrame implements ActionListener {
 		// Help Menu
 		JMenu helpMenu = new JMenu("Help");
 
-		ImageIcon viewHelpIcon = new ImageIcon();
-		JMenuItem menuItemViewHelp = new JMenuItem("View Help", viewHelpIcon);
-		menuItemViewHelp.addActionListener(this);
-		menuItemViewHelp.setToolTipText("Documentation and FAQ");
+		ImageIcon helpIcon = new ImageIcon();
+		JMenuItem menuItemHelp = new JMenuItem("Help", helpIcon);
+		menuItemHelp.addActionListener(this);
+		menuItemHelp.setToolTipText("Documentation and FAQ");
 
 		ImageIcon aboutIcon = new ImageIcon();
-		JMenuItem menuItemAbout = new JMenuItem("About " + applicationName, aboutIcon);
+		JMenuItem menuItemAbout = new JMenuItem("About", aboutIcon);
 		menuItemAbout.addActionListener(this);
 		menuItemAbout.setToolTipText("More about us");
 
 		mainMenu.add(helpMenu);
 
-		helpMenu.add(menuItemViewHelp);
+		helpMenu.add(menuItemHelp);
 		helpMenu.add(menuItemAbout);
 
 		frame.setJMenuBar(mainMenu);
@@ -165,6 +155,18 @@ public class TextEditor extends JFrame implements ActionListener {
 				Component f = null;
 				JOptionPane.showMessageDialog(f, "Error.");
 			}
+		} else if (ae.equals("Edit Manager")) {
+
+		} else if (ae.equals("Help")) {
+			HTMLContentPane h = new HTMLContentPane(frame, "Help", true, Paths.get("src/resources/text/aboutUs.html"));
+			h.setSize(640, 480);
+			h.setLocationRelativeTo(null);
+			h.setVisible(true);
+		} else if (ae.equals("About")) {
+			HTMLContentPane a = new HTMLContentPane(frame, "About Us", true, Paths.get("src/resources/text/help.html"));
+			a.setSize(640, 480);
+			a.setLocationRelativeTo(null);
+			a.setVisible(true);
 		} else if (ae.equals("New")) {
 			txtArea.setText("");
 		} else if (ae.equals("Exit")) {
