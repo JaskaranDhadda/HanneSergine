@@ -156,17 +156,21 @@ public class TextEditor extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(f, "Error.");
 			}
 		} else if (ae.equals("Edit Manager")) {
+			EditManager em = new EditManager();
 
+			em.setSize(640, 480);
+			em.setLocationRelativeTo(null);
+			em.setVisible(true);
 		} else if (ae.equals("Help")) {
-			HTMLContentPane h = new HTMLContentPane(frame, "Help", true, Paths.get("src/resources/text/aboutUs.html"));
+			HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
 			h.setSize(640, 480);
 			h.setLocationRelativeTo(null);
 			h.setVisible(true);
 		} else if (ae.equals("About")) {
-			HTMLContentPane a = new HTMLContentPane(frame, "About Us", true, Paths.get("src/resources/text/help.html"));
-			a.setSize(640, 480);
-			a.setLocationRelativeTo(null);
-			a.setVisible(true);
+			HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
+			h.setSize(640, 480);
+			h.setLocationRelativeTo(null);
+			h.setVisible(true);
 		} else if (ae.equals("New")) {
 			txtArea.setText("");
 		} else if (ae.equals("Exit")) {
