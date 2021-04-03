@@ -1,17 +1,6 @@
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,9 +21,10 @@ public class TextEditor extends JFrame implements ActionListener {
 	private static JFrame frame;
 	private static JScrollPane scrollPane;
 	private static int returnValue = 0;
+	private static String applicationName = "Hanne Sergine";
 
 	public void run() {
-		frame = new JFrame("Text Editor");
+		frame = new JFrame(applicationName);
 
 		//	Set the look-and-feel (LNF) of the application
 		//	Try to default to whatever the host system prefers
@@ -56,7 +47,8 @@ public class TextEditor extends JFrame implements ActionListener {
 
 		//	Build the menu
 		JMenuBar mainMenu = new JMenuBar();
-		
+
+		// File Menu
 		JMenu fileMenu = new JMenu("File");
 
 		ImageIcon newIcon = new ImageIcon("src/resources/images/new.png");
@@ -87,6 +79,36 @@ public class TextEditor extends JFrame implements ActionListener {
 		fileMenu.add(menuItemOpen);
 		fileMenu.add(menuItemSave);
 		fileMenu.add(menuItemExit);
+
+		// Edit Menu
+		JMenu editMenu = new JMenu("Edit");
+
+		ImageIcon editManagerIcon = new ImageIcon();
+		JMenuItem menuItemEditManager = new JMenuItem("Edit Manager", editManagerIcon);
+		menuItemEditManager.addActionListener(this);
+		menuItemEditManager.setToolTipText("Manage edits");
+
+		mainMenu.add(editMenu);
+
+		editMenu.add(menuItemEditManager);
+
+		// Help Menu
+		JMenu helpMenu = new JMenu("Help");
+
+		ImageIcon helpIcon = new ImageIcon();
+		JMenuItem menuItemHelp = new JMenuItem("Help", helpIcon);
+		menuItemHelp.addActionListener(this);
+		menuItemHelp.setToolTipText("Documentation and FAQ");
+
+		ImageIcon aboutIcon = new ImageIcon();
+		JMenuItem menuItemAbout = new JMenuItem("About", aboutIcon);
+		menuItemAbout.addActionListener(this);
+		menuItemAbout.setToolTipText("More about us");
+
+		mainMenu.add(helpMenu);
+
+		helpMenu.add(menuItemHelp);
+		helpMenu.add(menuItemAbout);
 
 		frame.setJMenuBar(mainMenu);
 	}
@@ -133,6 +155,22 @@ public class TextEditor extends JFrame implements ActionListener {
 				Component f = null;
 				JOptionPane.showMessageDialog(f, "Error.");
 			}
+		} else if (ae.equals("Edit Manager")) {
+			EditManager em = new EditManager();
+
+			em.setSize(640, 480);
+			em.setLocationRelativeTo(null);
+			em.setVisible(true);
+		} else if (ae.equals("Help")) {
+			HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
+			h.setSize(640, 480);
+			h.setLocationRelativeTo(null);
+			h.setVisible(true);
+		} else if (ae.equals("About")) {
+			HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
+			h.setSize(640, 480);
+			h.setLocationRelativeTo(null);
+			h.setVisible(true);
 		} else if (ae.equals("New")) {
 			txtArea.setText("");
 		} else if (ae.equals("Exit")) {

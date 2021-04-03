@@ -25,3 +25,10 @@ tmp/
 local.properties
 .loadpath
 .factorypath
+
+##############################
+## IntelliJ
+##############################
+.idea/
+*.iml
+*.class
