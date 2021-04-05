@@ -1,4 +1,7 @@
+package views;
+
 import javax.swing.*;
+import java.awt.*;
 
 public class EditManager extends JDialog {
 	private JPanel contentPane;
@@ -18,6 +21,8 @@ public class EditManager extends JDialog {
 
 	public EditManager() {
 		setTitle(title);
+		Image editManagerIcon = new ImageIcon("src/resources/images/history.png").getImage();
+		setIconImage(editManagerIcon);
 		setContentPane(contentPane);
 		setModal(true);
 	}
