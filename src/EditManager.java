@@ -20,5 +20,8 @@ public class EditManager extends JDialog {
 		setTitle(title);
 		setContentPane(contentPane);
 		setModal(true);
+
+
+
 	}
 }

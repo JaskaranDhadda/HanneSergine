@@ -42,8 +42,8 @@ public class TextEditor extends JFrame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		scrollPane = new JScrollPane(txtArea);
 		frame.add(scrollPane);
-		frame.setSize(640, 480);
-		frame.setVisible(true);
+		frame.setSize(1600, 1024);
+		frame.setLocationRelativeTo(null);
 
 		//	Build the menu
 		JMenuBar mainMenu = new JMenuBar();
@@ -111,6 +111,7 @@ public class TextEditor extends JFrame implements ActionListener {
 		helpMenu.add(menuItemAbout);
 
 		frame.setJMenuBar(mainMenu);
+		frame.setVisible(true);
 	}
 
 	@Override
@@ -157,7 +158,6 @@ public class TextEditor extends JFrame implements ActionListener {
 			}
 		} else if (ae.equals("Edit Manager")) {
 			EditManager em = new EditManager();
-
 			em.setSize(640, 480);
 			em.setLocationRelativeTo(null);
 			em.setVisible(true);
