@@ -1,5 +1,6 @@
 package views;
 
+import controllers.EditManagerController;
 import controllers.EditorController;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 public class Editor extends JFrame {
 
     private final EditorController editorControllerObj = new EditorController();
+    private final EditManagerController editManagerControllerObj =  new EditManagerController();
 
     public void init() {
         String applicationName = "Hanne Sergine";
@@ -32,6 +34,8 @@ public class Editor extends JFrame {
         JScrollPane scrollPane = new JScrollPane(txtArea);
         frame.add(scrollPane);
         frame.setSize(640, 480);
+
+        txtArea.getDocument().addDocumentListener(editManagerControllerObj);
 
         //	Build the menu
         JMenuBar mainMenu = new JMenuBar();

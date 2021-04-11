@@ -11,7 +11,7 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class EditorController extends BaseController {
+public class EditorController extends BaseController  {
 
     JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
