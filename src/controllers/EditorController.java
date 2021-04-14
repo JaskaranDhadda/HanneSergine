@@ -1,6 +1,10 @@
 package controllers;
 
+import models.EditGroupModel;
+import models.EditManagerModel;
+import models.EditorModel;
 import views.EditManager;
+import views.Editor;
 import views.HTMLViewer;
 
 import javax.swing.*;
@@ -9,9 +13,10 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EditorController extends BaseController  {
+public class EditorController extends BaseController {
 
     JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
@@ -20,8 +25,14 @@ public class EditorController extends BaseController  {
      *
      * @return
      */
-    public String newFile(){
+    public String newFile() {
         return "";
+    }
+
+    public void rerender() {
+        EditorModel.setTrackChanges(false);
+        Editor.txtArea.setText(EditorModel.getChangedContent());
+        EditorModel.setTrackChanges(true);
     }
 
     /**
@@ -29,7 +40,7 @@ public class EditorController extends BaseController  {
      *
      * @return
      */
-    public String openFile(){
+    public String openFile() {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         jfc.setDialogTitle("Open a .txt file");
@@ -61,7 +72,7 @@ public class EditorController extends BaseController  {
      *
      * @param fileText
      */
-    public void saveFile(String fileText){
+    public void saveFile(String fileText) {
         try {
             jfc.setDialogTitle("Choose destination.");
             int chooserOption = jfc.showSaveDialog(null);
@@ -78,8 +89,9 @@ public class EditorController extends BaseController  {
     /**
      * Renders the 'edit manager' view.
      */
-    public void editManager(){
-        EditManager em = new EditManager();
+    public void editManager() {
+        ArrayList<EditGroupModel> edits = EditManagerModel.getEditGroups();
+        EditManager em = new EditManager(edits);
         em.setSize(640, 480);
         em.setLocationRelativeTo(null);
         em.setVisible(true);
@@ -88,7 +100,7 @@ public class EditorController extends BaseController  {
     /**
      * Renders the 'help' view.
      */
-    public void help(){
+    public void help() {
         HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
         h.setSize(640, 480);
         h.setLocationRelativeTo(null);
@@ -98,7 +110,7 @@ public class EditorController extends BaseController  {
     /**
      * Renders the 'about us' view.
      */
-    public void about(){
+    public void about() {
         HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
         h.setSize(640, 480);
         h.setLocationRelativeTo(null);
@@ -108,7 +120,7 @@ public class EditorController extends BaseController  {
     /**
      * Terminates the running application.
      */
-    public void exitApp(){
+    public void exitApp() {
         System.exit(0);
     }
 }

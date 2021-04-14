@@ -1,6 +1,6 @@
 package views;
 
-import controllers.EditManagerController;
+import controllers.EditController;
 import controllers.EditorController;
 
 import javax.swing.*;
@@ -11,7 +11,8 @@ import java.util.logging.Logger;
 public class Editor extends JFrame {
 
     private final EditorController editorControllerObj = new EditorController();
-    private final EditManagerController editManagerControllerObj =  new EditManagerController();
+    private final EditController editControllerObj =  new EditController();
+    public static JTextArea txtArea;
 
     public void init() {
         String applicationName = "Hanne Sergine";
@@ -30,12 +31,12 @@ public class Editor extends JFrame {
         ImageIcon editorIcon = new ImageIcon("src/resources/images/editor.png");
         frame.setIconImage(editorIcon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JTextArea txtArea = new JTextArea();
+        txtArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(txtArea);
         frame.add(scrollPane);
         frame.setSize(640, 480);
 
-        txtArea.getDocument().addDocumentListener(editManagerControllerObj);
+        txtArea.getDocument().addDocumentListener(editControllerObj);
 
         //	Build the menu
         JMenuBar mainMenu = new JMenuBar();

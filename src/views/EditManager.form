@@ -94,12 +94,12 @@
               <text value="Delete"/>
             </properties>
           </component>
-          <component id="7de1" class="javax.swing.JButton" binding="clearAllButton" default-binding="true">
+          <component id="7de1" class="javax.swing.JButton" binding="createGroupButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Clear All"/>
+              <text value="Create Group"/>
             </properties>
           </component>
           <component id="d6305" class="javax.swing.JButton" binding="undoButton" default-binding="true">
@@ -119,31 +119,10 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="6dab5" class="javax.swing.JList" binding="list1" default-binding="true">
+          <component id="6dab5" class="javax.swing.JList" binding="groupList">
             <constraints/>
             <properties>
-              <model>
-                <item value="Edit 1"/>
-                <item value="Edit 2"/>
-                <item value="Edit 3"/>
-                <item value="Edit 4"/>
-                <item value="Edit 5"/>
-                <item value="Edit 6"/>
-                <item value="Edit 7"/>
-                <item value="Edit 8"/>
-                <item value="Edit 9"/>
-                <item value="Edit 10"/>
-                <item value="Edit 1"/>
-                <item value="Edit 2"/>
-                <item value="Edit 3"/>
-                <item value="Edit 4"/>
-                <item value="Edit 5"/>
-                <item value="Edit 6"/>
-                <item value="Edit 7"/>
-                <item value="Edit 8"/>
-                <item value="Edit 9"/>
-                <item value="Edit 10"/>
-              </model>
+              <model/>
             </properties>
           </component>
         </children>
@@ -155,16 +134,10 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="afd73" class="javax.swing.JList" binding="list2" default-binding="true">
+          <component id="afd73" class="javax.swing.JList" binding="stageAreaList">
             <constraints/>
             <properties>
-              <model>
-                <item value="Edit 1"/>
-                <item value="Edit 2"/>
-                <item value="Edit 4"/>
-                <item value="Edit 8"/>
-                <item value="Edit 9"/>
-              </model>
+              <model/>
             </properties>
           </component>
         </children>
@@ -177,17 +150,12 @@
           <text value="Staging area"/>
         </properties>
       </component>
-      <component id="707d5" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+      <component id="707d5" class="javax.swing.JComboBox" binding="editGroups">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <model>
-            <item value="Default"/>
-            <item value="Group 1"/>
-            <item value="Groiup 2"/>
-            <item value="Group 3"/>
-          </model>
+          <model/>
         </properties>
       </component>
     </children>
