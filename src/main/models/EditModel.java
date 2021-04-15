@@ -1,10 +1,11 @@
-package models;
+package main.models;
 
 public class EditModel {
 
+    public static int idIndex = 1;
+    private Integer id;
     private String content;
     private Boolean undone;
-    private Boolean selected;
 
     /**
      * Constructor.
@@ -12,9 +13,23 @@ public class EditModel {
      * @param content The initial content of the edit.
      */
     public EditModel(String content) {
+        this.setId();
         this.content = content;
         this.undone = false;
-        this.selected = false;
+    }
+
+    /**
+     * @return The id of the group.
+     */
+    public Integer getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the id of the group.
+     */
+    public void setId() {
+        this.id = idIndex++;
     }
 
     /**
@@ -30,7 +45,7 @@ public class EditModel {
      * @param content the edit content.
      */
     public void setContent(String content) {
-        this.content = content;
+        this.content = this.getUndone() ? "" : content;
     }
 
     /**
@@ -50,32 +65,16 @@ public class EditModel {
     }
 
     /**
-     * @return the select state of the edit.
-     */
-    public Boolean getSelected() {
-        return this.selected;
-    }
-
-    /**
-     * Updates the state the edit's select.
-     *
-     * @param selected the new state.
-     */
-    public void setSelected(Boolean selected) {
-        this.selected = selected;
-    }
-
-    /**
      * Changes the edit's status from done to undone and vice-versa.
      */
     public void toggleStatus() {
         this.undone = !this.undone;
     }
 
-    /**
-     * Changes he state the edit's select from unselected to selected and vice-versa.
-     */
-    public void toggleSelect() {
-        this.selected = !this.selected;
+
+    @Override
+    public String toString() {
+        String status = this.getUndone() ? " | hidden" : "";
+        return "ID = " + id + " | Content = '" + content + "'" + status;
     }
 }

@@ -1,4 +1,4 @@
-package models;
+package main.models;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,13 @@ public class EditManagerModel {
      * Creates a new edit group and adds it to the list of groups.
      *
      * @param name The name of the given edit group.
+     *
+     * @return The created group.
      */
-    public static void createGroup(String name) {
+    public static EditGroupModel createGroup(String name) {
         EditGroupModel editGroupObj = new EditGroupModel(name);
         editGroups.add(editGroupObj);
+        return editGroupObj;
     }
 
     /**

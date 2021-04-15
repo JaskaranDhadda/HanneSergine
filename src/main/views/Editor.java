@@ -1,7 +1,7 @@
-package views;
+package main.views;
 
-import controllers.EditManagerController;
-import controllers.EditorController;
+import main.controllers.EditController;
+import main.controllers.EditorController;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +11,8 @@ import java.util.logging.Logger;
 public class Editor extends JFrame {
 
     private final EditorController editorControllerObj = new EditorController();
-    private final EditManagerController editManagerControllerObj =  new EditManagerController();
+    private final EditController editControllerObj =  new EditController();
+    public static JTextArea txtArea;
 
     public void init() {
         String applicationName = "Hanne Sergine";
@@ -27,15 +28,15 @@ public class Editor extends JFrame {
         }
 
         //	Set attributes of the app window
-        ImageIcon editorIcon = new ImageIcon("src/resources/images/editor.png");
+        ImageIcon editorIcon = new ImageIcon("src/main.resources/images/editor.png");
         frame.setIconImage(editorIcon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JTextArea txtArea = new JTextArea();
+        txtArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(txtArea);
         frame.add(scrollPane);
         frame.setSize(640, 480);
 
-        txtArea.getDocument().addDocumentListener(editManagerControllerObj);
+        txtArea.getDocument().addDocumentListener(editControllerObj);
 
         //	Build the menu
         JMenuBar mainMenu = new JMenuBar();
@@ -44,7 +45,7 @@ public class Editor extends JFrame {
         JMenu fileMenu = new JMenu("File");
         mainMenu.add(fileMenu);
 
-        ImageIcon newIcon = new ImageIcon("src/resources/images/new.png");
+        ImageIcon newIcon = new ImageIcon("src/main.resources/images/new.png");
         JMenuItem menuItemNew = new JMenuItem("New", newIcon);
         menuItemNew.setToolTipText("Create a new file");
         KeyStroke ctrlN = KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
@@ -52,7 +53,7 @@ public class Editor extends JFrame {
         menuItemNew.addActionListener(evt -> txtArea.setText(editorControllerObj.newFile()));
         fileMenu.add(menuItemNew);
 
-        ImageIcon openIcon = new ImageIcon("src/resources/images/open.png");
+        ImageIcon openIcon = new ImageIcon("src/main.resources/images/open.png");
         JMenuItem menuItemOpen = new JMenuItem("Open", openIcon);
         menuItemOpen.setToolTipText("Open a new file");
         KeyStroke ctrlO = KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
@@ -60,7 +61,7 @@ public class Editor extends JFrame {
         menuItemOpen.addActionListener(evt -> txtArea.setText(editorControllerObj.openFile()));
         fileMenu.add(menuItemOpen);
 
-        ImageIcon saveIcon = new ImageIcon("src/resources/images/save.png");
+        ImageIcon saveIcon = new ImageIcon("src/main.resources/images/save.png");
         JMenuItem menuItemSave = new JMenuItem("Save", saveIcon);
         menuItemSave.setToolTipText("Save file");
         KeyStroke ctrlS = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
@@ -68,7 +69,7 @@ public class Editor extends JFrame {
         menuItemSave.addActionListener(evt -> editorControllerObj.saveFile(txtArea.getText()));
         fileMenu.add(menuItemSave);
 
-        ImageIcon exitIcon = new ImageIcon("src/resources/images/exit.png");
+        ImageIcon exitIcon = new ImageIcon("src/main.resources/images/exit.png");
         JMenuItem menuItemExit = new JMenuItem("Exit", exitIcon);
         menuItemExit.setToolTipText("Exit application");
         KeyStroke ctrlE = KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK);
@@ -80,7 +81,7 @@ public class Editor extends JFrame {
         JMenu editMenu = new JMenu("Edit");
         mainMenu.add(editMenu);
 
-        ImageIcon editManagerIcon = new ImageIcon("src/resources/images/history.png");
+        ImageIcon editManagerIcon = new ImageIcon("src/main.resources/images/history.png");
         JMenuItem menuItemEditManager = new JMenuItem("Edit Manager", editManagerIcon);
         menuItemEditManager.setToolTipText("Manage edits");
         KeyStroke ctrlM = KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK);
@@ -92,13 +93,13 @@ public class Editor extends JFrame {
         JMenu helpMenu = new JMenu("Help");
         mainMenu.add(helpMenu);
 
-        ImageIcon helpIcon = new ImageIcon("src/resources/images/help.png");
+        ImageIcon helpIcon = new ImageIcon("src/main.resources/images/help.png");
         JMenuItem menuItemHelp = new JMenuItem("Help", helpIcon);
         menuItemHelp.setToolTipText("Documentation and FAQ");
         menuItemHelp.addActionListener(evt -> editorControllerObj.help());
         helpMenu.add(menuItemHelp);
 
-        ImageIcon aboutIcon = new ImageIcon("src/resources/images/about.png");
+        ImageIcon aboutIcon = new ImageIcon("src/main.resources/images/about.png");
         JMenuItem menuItemAbout = new JMenuItem("About", aboutIcon);
         menuItemAbout.setToolTipText("More about us");
         menuItemAbout.addActionListener(evt -> editorControllerObj.about());

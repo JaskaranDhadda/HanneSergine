@@ -1,15 +1,15 @@
-package controllers;
+package main.controllers;
 
-import models.EditorModel;
+import main.models.EditorModel;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class EditManagerController extends BaseController implements DocumentListener {
+public class EditController extends BaseController implements DocumentListener {
 
     private EditorModel editorModelObj;
 
-    public EditManagerController(){
+    public EditController(){
          this.editorModelObj = new EditorModel();
     }
 

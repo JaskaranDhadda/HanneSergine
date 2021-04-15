@@ -1,8 +1,12 @@
-package models;
+package main.models;
 
 import java.util.LinkedList;
 
 public class EditGroupModel {
+
+    public static int idIndex = 1;
+
+    private Integer id;
 
     private String name;
 
@@ -13,9 +17,24 @@ public class EditGroupModel {
      *
      * @param name The name of the given group.
      */
-    EditGroupModel(String name) {
+	public EditGroupModel(String name) {
+        this.setId();
         this.name = name;
         this.edits = new LinkedList<>();
+    }
+
+    /**
+     * @return The id of the group.
+     */
+    public Integer getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the id of the group.
+     */
+    public void setId() {
+        this.id = idIndex++;
     }
 
     /**
@@ -26,7 +45,7 @@ public class EditGroupModel {
     }
 
     /**
-     * Updates the name of the group.
+     * Sets the name of the group.
      *
      * @param name The new name.
      */
@@ -53,19 +72,21 @@ public class EditGroupModel {
     /**
      * Removes an edit to the given group by its index.
      *
-     * @param editIndex The index of the dit to remove.
+     * @param editId The id of the edit to remove.
      */
-    public void removeEditByIndex(int editIndex) {
-        this.edits.remove(editIndex);
+    public void removeEditByID(int editId) {
+        edits.removeIf(e -> e.getId() == editId);
+        var v = 0;
     }
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("EditGroup: " + name);
+        /*StringBuilder result = new StringBuilder("EditGroup: " + name);
 
         for (EditModel edit : this.edits) {
             result.append("\nEdit content: '").append(edit.getContent()).append("'\nUndone?: ").append(edit.getUndone());
         }
-        return result.toString();
+        return result.toString();*/
+        return this.name;
     }
 }
