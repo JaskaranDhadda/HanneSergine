@@ -1,17 +1,12 @@
-package views;
+package main.views;
 
-import controllers.EditController;
-import controllers.EditorController;
-import controllers.ManagerController;
-import models.EditGroupModel;
-import models.EditModel;
+import main.controllers.EditorController;
+import main.controllers.ManagerController;
+import main.models.EditGroupModel;
+import main.models.EditModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -36,7 +31,7 @@ public class EditManager extends JDialog {
 
 	public EditManager(ArrayList<EditGroupModel> edits) {
 		setTitle(title);
-		Image editManagerIcon = new ImageIcon("src/resources/images/history.png").getImage();
+		Image editManagerIcon = new ImageIcon("src/main.resources/images/history.png").getImage();
 		setIconImage(editManagerIcon);
 		setContentPane(contentPane);
 		setModal(true);

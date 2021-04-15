@@ -1,4 +1,4 @@
-package models;
+package main.models;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.BadLocationException;

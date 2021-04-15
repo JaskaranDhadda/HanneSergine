@@ -1,4 +1,4 @@
-package models;
+package main.models;
 
 import java.util.LinkedList;
 
@@ -17,7 +17,7 @@ public class EditGroupModel {
      *
      * @param name The name of the given group.
      */
-    EditGroupModel(String name) {
+	public EditGroupModel(String name) {
         this.setId();
         this.name = name;
         this.edits = new LinkedList<>();
@@ -75,19 +75,8 @@ public class EditGroupModel {
      * @param editId The id of the edit to remove.
      */
     public void removeEditByID(int editId) {
-        this.edits.remove(editId);
-
-        if(this.edits.size() == 0) {
-            return;
-        } else if (this.edits.size() == 1){
-            this.edits.clear();
-        } else {
-            for(int i = 0; i < this.edits.size(); i++){
-                if (this.edits.get(i).getId() == editId) {
-                    this.edits.remove(i);
-                }
-            }
-        }
+        edits.removeIf(e -> e.getId() == editId);
+        var v = 0;
     }
 
     @Override

@@ -1,4 +1,6 @@
-import views.Editor;
+package main;
+
+import main.views.Editor;
 
 public class App {
 

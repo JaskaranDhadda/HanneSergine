@@ -1,11 +1,11 @@
-package controllers;
+package main.controllers;
 
-import models.EditGroupModel;
-import models.EditManagerModel;
-import models.EditorModel;
-import views.EditManager;
-import views.Editor;
-import views.HTMLViewer;
+import main.models.EditGroupModel;
+import main.models.EditManagerModel;
+import main.models.EditorModel;
+import main.views.EditManager;
+import main.views.Editor;
+import main.views.HTMLViewer;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -101,7 +101,7 @@ public class EditorController extends BaseController {
      * Renders the 'help' view.
      */
     public void help() {
-        HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
+        HTMLViewer h = new HTMLViewer("Help", Paths.get("src/main.resources/text/help.html"));
         h.setSize(640, 480);
         h.setLocationRelativeTo(null);
         h.setVisible(true);
@@ -111,7 +111,7 @@ public class EditorController extends BaseController {
      * Renders the 'about us' view.
      */
     public void about() {
-        HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
+        HTMLViewer h = new HTMLViewer("About", Paths.get("src/main.resources/text/aboutUs.html"));
         h.setSize(640, 480);
         h.setLocationRelativeTo(null);
         h.setVisible(true);

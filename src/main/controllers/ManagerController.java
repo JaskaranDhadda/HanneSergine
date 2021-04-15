@@ -1,9 +1,9 @@
-package controllers;
+package main.controllers;
 
-import models.EditGroupModel;
-import models.EditManagerModel;
-import models.EditModel;
-import models.EditorModel;
+import main.models.EditGroupModel;
+import main.models.EditManagerModel;
+import main.models.EditModel;
+import main.models.EditorModel;
 
 import javax.swing.*;
 import java.util.LinkedList;
