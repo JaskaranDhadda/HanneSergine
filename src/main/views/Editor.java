@@ -32,6 +32,7 @@ public class Editor extends JFrame {
         frame.setIconImage(editorIcon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         txtArea = new JTextArea();
+        txtArea.setLineWrap(true);
         JScrollPane scrollPane = new JScrollPane(txtArea);
         frame.add(scrollPane);
         frame.setSize(640, 480);
