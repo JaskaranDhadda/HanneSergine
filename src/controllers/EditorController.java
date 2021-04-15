@@ -10,7 +10,6 @@ import views.HTMLViewer;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,14 +21,19 @@ public class EditorController extends BaseController {
 
     /**
      * Clears the text area of the editor.
-     *
-     * @return
      */
-    public String newFile() {
-        return "";
+    public void newFile() {
+        // TODO Delete all groups and edits
+        EditorModel.setTrackChanges(false);
+        Editor.txtArea.setText("");
+        EditorModel.setTrackChanges(true);
     }
 
-    public void rerender() {
+    /**
+     * Renders the altered text into the editor's textarea following any modification to the stored edits.
+     */
+    public void renderContent() {
+        //  Temporarily disable the tracking for edits with the text area
         EditorModel.setTrackChanges(false);
         Editor.txtArea.setText(EditorModel.getChangedContent());
         EditorModel.setTrackChanges(true);
@@ -37,21 +41,28 @@ public class EditorController extends BaseController {
 
     /**
      * Opens a text file and loads its content into the editor's textarea.
-     *
-     * @return
      */
-    public String openFile() {
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
-        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        jfc.setDialogTitle("Open a .txt file");
-        jfc.setFileFilter(filter);
-        int chooserOption = jfc.showSaveDialog(null);
-
+    public void openFile() {
         StringBuilder fileContent = new StringBuilder();
 
-        if(chooserOption == JFileChooser.APPROVE_OPTION) {
-            File f = new File(jfc.getSelectedFile().getAbsolutePath());
-            try {
+        try {
+            //  Set the title for JFileChooser window
+            this.jfc.setDialogTitle("Open a .txt file");
+
+            //  Instruction to display only files
+            this.jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+            //  Accept only .txt files
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+            this.jfc.setFileFilter(filter);
+
+            //  Pops up an "Open File" file chooser dialog.
+            int chooserOption = this.jfc.showOpenDialog(null);
+
+            //  If approve (yes, ok, open) is chosen
+            if(chooserOption == JFileChooser.APPROVE_OPTION) {
+                //  Try to read the chosen file
+                File f = new File(this.jfc.getSelectedFile().getAbsolutePath());
                 FileReader read = new FileReader(f);
                 Scanner scan = new Scanner(read);
                 while (scan.hasNextLine()) {
@@ -59,30 +70,36 @@ public class EditorController extends BaseController {
                     fileContent.append(line);
                 }
                 scan.close();
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
             }
+        } catch (FileNotFoundException | NullPointerException | IllegalStateException ex) {
+            this.displayError("Apologies, an error occurred while processing the file.", "File Opening Error");
+            ex.printStackTrace();
         }
-
-        return fileContent.toString();
+        //  Render the file content into the editor's textarea
+        Editor.txtArea.setText(fileContent.toString());
     }
 
     /**
      * Saves the text within editor textarea into a file.
-     *
-     * @param fileText
      */
-    public void saveFile(String fileText) {
+    public void saveFile() {
         try {
-            jfc.setDialogTitle("Choose destination.");
+            //  Set the title for JFileChooser window
+            this.jfc.setDialogTitle("Choose a destination.");
+
+            //  Pops up an "Save File" file chooser dialog
             int chooserOption = jfc.showSaveDialog(null);
-            File f = new File(jfc.getSelectedFile().getAbsolutePath());
-            FileWriter out = new FileWriter(f);
-            out.write(fileText);
-            out.close();
-        } catch (IOException ex) {
-            Component f = null;
-            JOptionPane.showMessageDialog(f, "Error");
+
+            //  If approve (yes, ok, open) is chosen
+            if(chooserOption == JFileChooser.APPROVE_OPTION) {
+                File f = new File(jfc.getSelectedFile().getAbsolutePath());
+                FileWriter out = new FileWriter(f);
+                out.write(Editor.txtArea.getText());
+                out.close();
+            }
+        } catch (IOException | NullPointerException ex) {
+            this.displayError("Apologies, an error occurred while saving the file.", "File Saving Error");
+            ex.printStackTrace();
         }
     }
 
@@ -90,37 +107,61 @@ public class EditorController extends BaseController {
      * Renders the 'edit manager' view.
      */
     public void editManager() {
-        ArrayList<EditGroupModel> edits = EditManagerModel.getEditGroups();
-        EditManager em = new EditManager(edits);
-        em.setSize(640, 480);
-        em.setLocationRelativeTo(null);
-        em.setVisible(true);
+        try {
+            ArrayList<EditGroupModel> edits = EditManagerModel.getEditGroups();
+            if (edits.get(0).getEdits().size() > 0) {
+                EditManager em = new EditManager(edits);
+                em.setSize(640, 480);
+                em.setLocationRelativeTo(null);
+                em.setVisible(true);
+            } else {
+                this.displayInfo("Please type something or open a file.", "No Edits");
+            }
+        } catch (Exception e) {
+            this.displayError("Apologies, an error occurred while opening the 'edit manager' window.", "Edit Manager Window Error");
+            e.printStackTrace();
+        }
     }
 
     /**
      * Renders the 'help' view.
      */
     public void help() {
-        HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
-        h.setSize(640, 480);
-        h.setLocationRelativeTo(null);
-        h.setVisible(true);
+        try {
+            HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
+            h.setSize(640, 480);
+            h.setLocationRelativeTo(null);
+            h.setVisible(true);
+        } catch (Exception e) {
+            this.displayError("Apologies, an error occurred while opening the 'help' view.", "Help View Error");
+            e.printStackTrace();
+        }
     }
 
     /**
      * Renders the 'about us' view.
      */
     public void about() {
-        HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
-        h.setSize(640, 480);
-        h.setLocationRelativeTo(null);
-        h.setVisible(true);
+        try {
+            HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
+            h.setSize(640, 480);
+            h.setLocationRelativeTo(null);
+            h.setVisible(true);
+        } catch (Exception e) {
+            this.displayError("Apologies, an error occurred while opening the 'about us' view.", "About Us View Error");
+            e.printStackTrace();
+        }
     }
 
     /**
      * Terminates the running application.
      */
     public void exitApp() {
-        System.exit(0);
+        try {
+            System.exit(0);
+        } catch (Exception e) {
+            this.displayError("Apologies, an error occurred while trying to exit the application.", "Exit App Error");
+            e.printStackTrace();
+        }
     }
 }

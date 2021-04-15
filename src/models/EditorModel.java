@@ -9,19 +9,20 @@ import java.util.StringTokenizer;
 public class EditorModel {
 
     private static EditGroupModel defaultEditGroup;
+
     private String inputBuffer = "";
 
     private static boolean trackChanges = true;
 
     public EditorModel() {
-        this.defaultEditGroup = new EditGroupModel("Default");
-        EditManagerModel.addGroup(this.defaultEditGroup);
+        defaultEditGroup = new EditGroupModel("Default");
+        EditManagerModel.addGroup(defaultEditGroup);
     }
 
     /**
      * Sets the value of the track changes variable.
      *
-     * @param trackChanges
+     * @param trackChanges True or false
      */
     public static void setTrackChanges(boolean trackChanges) {
         EditorModel.trackChanges = trackChanges;
@@ -34,7 +35,7 @@ public class EditorModel {
      */
     public void pushEdit(String content) {
         EditModel editModelObj = new EditModel(content);
-        this.defaultEditGroup.addEdit(editModelObj);
+        defaultEditGroup.addEdit(editModelObj);
     }
 
     /**
@@ -54,14 +55,10 @@ public class EditorModel {
     /**
      * Tracks the changes within the text area.
      *
-     * @param documentEvent
+     * @param documentEvent The document event.
      */
     public void trackChange(DocumentEvent documentEvent) {
         if(trackChanges) {
-            // Gets the type of event
-            DocumentEvent.EventType type = documentEvent.getType();
-            // System.out.println("Type: " + type.toString());
-
             // Returns the offset within the document of the start of the change
             int offset = documentEvent.getOffset();
             // System.out.println("Offset: " + offset);
@@ -123,7 +120,5 @@ public class EditorModel {
         return editGroupContent.toString();
     }
 
-    public static void deleteEdit(int editId) {
-        defaultEditGroup.removeEditByID(editId);
-    }
+
 }

@@ -17,17 +17,10 @@ public class EditGroupModel {
      *
      * @param name The name of the given group.
      */
-    EditGroupModel(String name) {
+    public EditGroupModel(String name) {
         this.setId();
         this.name = name;
         this.edits = new LinkedList<>();
-    }
-
-    /**
-     * @return The id of the group.
-     */
-    public Integer getId() {
-        return this.id;
     }
 
     /**
@@ -42,15 +35,6 @@ public class EditGroupModel {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Sets the name of the group.
-     *
-     * @param name The new name.
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -69,35 +53,8 @@ public class EditGroupModel {
         this.edits.add(edit);
     }
 
-    /**
-     * Removes an edit to the given group by its index.
-     *
-     * @param editId The id of the edit to remove.
-     */
-    public void removeEditByID(int editId) {
-        this.edits.remove(editId);
-
-        if(this.edits.size() == 0) {
-            return;
-        } else if (this.edits.size() == 1){
-            this.edits.clear();
-        } else {
-            for(int i = 0; i < this.edits.size(); i++){
-                if (this.edits.get(i).getId() == editId) {
-                    this.edits.remove(i);
-                }
-            }
-        }
-    }
-
     @Override
     public String toString() {
-        /*StringBuilder result = new StringBuilder("EditGroup: " + name);
-
-        for (EditModel edit : this.edits) {
-            result.append("\nEdit content: '").append(edit.getContent()).append("'\nUndone?: ").append(edit.getUndone());
-        }
-        return result.toString();*/
-        return this.name;
+        return "Name: " + this.name + " | Size: " + this.edits.size();
     }
 }

@@ -50,7 +50,7 @@ public class Editor extends JFrame {
         menuItemNew.setToolTipText("Create a new file");
         KeyStroke ctrlN = KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK);
         menuItemNew.setAccelerator(ctrlN);
-        menuItemNew.addActionListener(evt -> txtArea.setText(editorControllerObj.newFile()));
+        menuItemNew.addActionListener(evt -> editorControllerObj.newFile());
         fileMenu.add(menuItemNew);
 
         ImageIcon openIcon = new ImageIcon("src/resources/images/open.png");
@@ -58,7 +58,7 @@ public class Editor extends JFrame {
         menuItemOpen.setToolTipText("Open a new file");
         KeyStroke ctrlO = KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK);
         menuItemOpen.setAccelerator(ctrlO);
-        menuItemOpen.addActionListener(evt -> txtArea.setText(editorControllerObj.openFile()));
+        menuItemOpen.addActionListener(evt -> editorControllerObj.openFile());
         fileMenu.add(menuItemOpen);
 
         ImageIcon saveIcon = new ImageIcon("src/resources/images/save.png");
@@ -66,7 +66,7 @@ public class Editor extends JFrame {
         menuItemSave.setToolTipText("Save file");
         KeyStroke ctrlS = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         menuItemSave.setAccelerator(ctrlS);
-        menuItemSave.addActionListener(evt -> editorControllerObj.saveFile(txtArea.getText()));
+        menuItemSave.addActionListener(evt -> editorControllerObj.saveFile());
         fileMenu.add(menuItemSave);
 
         ImageIcon exitIcon = new ImageIcon("src/resources/images/exit.png");
