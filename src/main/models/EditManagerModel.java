@@ -1,6 +1,8 @@
 package main.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class EditManagerModel {
 
@@ -36,11 +38,37 @@ public class EditManagerModel {
     }
 
     /**
-     * Deletes an edit group from the list of groups.
+     * Deletes the given edits.
      *
-     * @param groupIndex The index of the group to delete.
+     * @param edits The list of edits to delete.
      */
-    public static void deleteGroupByIndex(int groupIndex) {
-        editGroups.remove(groupIndex);
+    public static void deleteEdits(List edits) {
+        Iterator<EditGroupModel> it = editGroups.iterator();
+
+        while (it.hasNext()) {
+            EditGroupModel editGroup = it.next();
+            editGroup.getEdits().removeAll(edits);
+            //  Remove empty group
+            if(editGroup.getEdits().size() == 0) {
+                it.remove();
+            }
+        }
+    }
+
+    /**
+     * Deletes an edit group from the list of groups along with all its edits.
+     *
+     * @param editGroup The group to delete.
+     */
+    public static void deleteGroup(EditGroupModel editGroup) {
+        Iterator<EditGroupModel> it = editGroups.iterator();
+        while (it.hasNext()) {
+            EditGroupModel editGroupTemp = it.next();
+            editGroupTemp.getEdits().removeAll(editGroup.getEdits());
+            //  Remove empty group
+            if(editGroupTemp.getEdits().size() == 0) {
+                it.remove();
+            }
+        }
     }
 }

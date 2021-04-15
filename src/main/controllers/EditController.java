@@ -7,8 +7,14 @@ import javax.swing.event.DocumentListener;
 
 public class EditController extends BaseController implements DocumentListener {
 
-    private EditorModel editorModelObj;
+    /**
+     * An instance of the editor model to tracks changes in the textarea of the editor.
+     */
+    private final EditorModel editorModelObj;
 
+    /**
+     * Constructor.
+     */
     public EditController(){
          this.editorModelObj = new EditorModel();
     }

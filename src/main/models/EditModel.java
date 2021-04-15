@@ -1,5 +1,7 @@
 package main.models;
 
+import java.util.Arrays;
+
 public class EditModel {
 
     public static int idIndex = 1;
@@ -19,13 +21,6 @@ public class EditModel {
     }
 
     /**
-     * @return The id of the group.
-     */
-    public Integer getId() {
-        return this.id;
-    }
-
-    /**
      * Sets the id of the group.
      */
     public void setId() {
@@ -33,19 +28,10 @@ public class EditModel {
     }
 
     /**
-     * @return the edit content.
+     * @return The edit content.
      */
     public String getContent() {
         return this.content;
-    }
-
-    /**
-     * Updates the edit content.
-     *
-     * @param content the edit content.
-     */
-    public void setContent(String content) {
-        this.content = this.getUndone() ? "" : content;
     }
 
     /**
@@ -56,25 +42,24 @@ public class EditModel {
     }
 
     /**
-     * Updates the edit's status.
-     *
-     * @param undone the new status.
-     */
-    public void setUndone(Boolean undone) {
-        this.undone = undone;
-    }
-
-    /**
      * Changes the edit's status from done to undone and vice-versa.
      */
     public void toggleStatus() {
         this.undone = !this.undone;
     }
 
-
     @Override
     public String toString() {
-        String status = this.getUndone() ? " | hidden" : "";
-        return "ID = " + id + " | Content = '" + content + "'" + status;
+        String status = this.getUndone() ? " | HIDDEN" : "";
+        String tmpContent = this.content;
+
+        //  If the edit contains a line separator
+        if (Arrays.stream(new String[]{"\n", "\r", "\f"}).anyMatch(this.content::contains)) {
+            tmpContent = "LINE_SEPARATOR";
+        } else if (this.content.isBlank()) { //  If the edit contains a white space
+            tmpContent = "WHITE_SPACE";
+        }
+
+        return "ID = " + this.id + " | Content = '" + tmpContent + "'" + status;
     }
 }

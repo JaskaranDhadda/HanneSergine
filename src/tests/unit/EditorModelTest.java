@@ -39,11 +39,4 @@ class EditorModelTest {
 		em.processBufferedInput();
 		assert EditorModel.getChangedContent().equals("aaa");
 	}
-
-	@Test
-	void deleteEdit() {
-		em.pushEdit("aaa");
-		em.processBufferedInput();
-		EditorModel.deleteEdit(2);
-	}
 }

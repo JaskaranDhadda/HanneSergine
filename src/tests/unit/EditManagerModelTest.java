@@ -33,13 +33,4 @@ class EditManagerModelTest {
 		EditManagerModel.addGroup(editGroup);
 		assert EditManagerModel.editGroups.size() == 1;
 	}
-
-	@Test
-	void deleteGroupByIndex() {
-		assert EditManagerModel.editGroups.size() == 0;
-		EditManagerModel.createGroup("Test Group #4");
-		assert EditManagerModel.editGroups.size() == 1;
-		EditManagerModel.deleteGroupByIndex(0);
-		assert EditManagerModel.editGroups.size() == 0;
-	}
 }

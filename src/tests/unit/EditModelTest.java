@@ -20,25 +20,7 @@ class EditModelTest {
 	}
 
 	@Test
-	void setContent() {
-		String newCcontent = "New Content";
-
-		assert em.getContent().equals(content);
-		em.setContent(newCcontent);
-		assert em.getContent().equals(newCcontent);
-	}
-
-	@Test
 	void getUndone() {
-		assert !em.getUndone();
-	}
-
-	@Test
-	void setUndone() {
-		assert !em.getUndone();
-		em.setUndone(true);
-		assert em.getUndone();
-		em.setUndone(false);
 		assert !em.getUndone();
 	}
 
