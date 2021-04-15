@@ -6,3 +6,7 @@ A simple text editor with smart-undo capabilities.
 * Jaskaran Dhadda
 * Kiana Nezami
 * Dominic Morin
+
+### Requirements
+* JavaSE-15 (version 16)
+* Junit5.4
