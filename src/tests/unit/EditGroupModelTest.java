@@ -28,17 +28,5 @@ class EditGroupModelTest {
 		assert group.getEdits().size() == 10;
 	}
 
-	@Test
-	void removeEditByID() {
-		assert group.getEdits().size() == 0;
-		for (int i = 0; i < 10; i++) {
-			group.addEdit(new EditModel("Test Edit #" + i));
-		}
-		var edits = group.getEdits();
-		assert edits.size() == 10;
 
-		int id = edits.get(3).getId();
-		group.removeEditByID(id);
-		assert group.getEdits().size() == 9;
-	}
 }

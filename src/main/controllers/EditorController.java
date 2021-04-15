@@ -128,7 +128,7 @@ public class EditorController extends BaseController {
      */
     public void help() {
         try {
-            HTMLViewer h = new HTMLViewer("Help", Paths.get("src/resources/text/help.html"));
+            HTMLViewer h = new HTMLViewer("Help", Paths.get("src/main/resources/text/help.html"));
             h.setSize(640, 480);
             h.setLocationRelativeTo(null);
             h.setVisible(true);
@@ -143,7 +143,7 @@ public class EditorController extends BaseController {
      */
     public void about() {
         try {
-            HTMLViewer h = new HTMLViewer("About", Paths.get("src/resources/text/aboutUs.html"));
+            HTMLViewer h = new HTMLViewer("About", Paths.get("src/main/resources/text/aboutUs.html"));
             h.setSize(640, 480);
             h.setLocationRelativeTo(null);
             h.setVisible(true);
