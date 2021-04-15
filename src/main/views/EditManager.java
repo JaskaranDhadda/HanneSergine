@@ -1,9 +1,9 @@
-package views;
+package main.views;
 
-import controllers.EditorController;
-import controllers.ManagerController;
-import models.EditGroupModel;
-import models.EditModel;
+import main.controllers.EditorController;
+import main.controllers.ManagerController;
+import main.models.EditGroupModel;
+import main.models.EditModel;
 
 import javax.swing.*;
 import java.awt.*;

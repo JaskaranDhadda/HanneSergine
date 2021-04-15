@@ -1,11 +1,11 @@
-package controllers;
+package main.controllers;
 
-import models.EditGroupModel;
-import models.EditManagerModel;
-import models.EditorModel;
-import views.EditManager;
-import views.Editor;
-import views.HTMLViewer;
+import main.models.EditGroupModel;
+import main.models.EditManagerModel;
+import main.models.EditorModel;
+import main.views.EditManager;
+import main.views.Editor;
+import main.views.HTMLViewer;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
