@@ -4,5 +4,5 @@ A simple text editor with smart-undo capabilities.
 
 ## Contributors
 * Jaskaran Dhadda
-* Kiana Nzm
+* Kiana Nezami
 * Dominic Morin
